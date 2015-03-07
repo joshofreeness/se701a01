@@ -18,7 +18,7 @@ public class MainRunner {
 				UniParser parser = new UniParser(is);
 				
 				try {
-					parser.MedCenter();
+					parser.University();
 					System.out.println(f.getName()+" OK");
 					System.out.println("------------------------------------");
 				} catch (TokenMgrError e) {
