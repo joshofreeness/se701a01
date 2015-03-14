@@ -4,7 +4,351 @@ package uni;
 public class UniParser implements UniParserConstants {
 
   final public void University() throws ParseException {
-    jj_consume_token(CONSTANT);
+    jj_consume_token(UNIVERSITY);
+    jj_consume_token(NON_EMPTY_STRING);
+    jj_consume_token(LB);
+    Established();
+    Website();
+    Gps();
+    label_1:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case FACULTY:
+        ;
+        break;
+      default:
+        jj_la1[0] = jj_gen;
+        break label_1;
+      }
+      Faculty();
+    }
+    jj_consume_token(RB);
+    jj_consume_token(0);
+  }
+
+  final public void Established() throws ParseException {
+    jj_consume_token(ESTABLISHED);
+    jj_consume_token(NUM_4);
+  }
+
+  final public void Website() throws ParseException {
+    jj_consume_token(WEBSITE);
+    jj_consume_token(WEBADDRESS);
+  }
+
+  final public void Gps() throws ParseException {
+    jj_consume_token(GPS);
+    Location();
+  }
+
+  final public void Faculty() throws ParseException {
+        int StudentsCount = 0;
+        int StaffCount = 0;
+        int CodeCount = 0;
+        int WebsiteCount = 0;
+    jj_consume_token(FACULTY);
+    jj_consume_token(NON_EMPTY_STRING);
+    jj_consume_token(LB);
+    label_2:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case STUDENTS:
+        Students();
+                     StudentsCount++;
+        break;
+      case STAFF:
+        Staff();
+                                                 StaffCount++;
+        break;
+      case CODE:
+        Code();
+                                                                         CodeCount++;
+        break;
+      case WEBSITE:
+        Website();
+                                                                                                  WebsiteCount++;
+        break;
+      default:
+        jj_la1[1] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case WEBSITE:
+      case STUDENTS:
+      case STAFF:
+      case CODE:
+        ;
+        break;
+      default:
+        jj_la1[2] = jj_gen;
+        break label_2;
+      }
+    }
+    jj_consume_token(RB);
+                if (StudentsCount != 1)
+                {
+                {if (true) throw new ParseException("Expected exactly one Students entry in FACULTY");}
+                }
+                if (StaffCount != 1)
+                {
+                {if (true) throw new ParseException("Expected exactly one Staff entry in FACULTY");}
+                }
+                if (WebsiteCount > 1)
+                {
+                {if (true) throw new ParseException("Expected zero or one Website entries in FACULTY");}
+                }
+                if (CodeCount < 1)
+                {
+                {if (true) throw new ParseException("Expected one or more code entries in FACULTY");}
+                }
+  }
+
+  final public void Students() throws ParseException {
+    jj_consume_token(STUDENTS);
+    AnyDigits();
+  }
+
+  final public void Staff() throws ParseException {
+    jj_consume_token(STAFF);
+    AnyDigits();
+  }
+
+  final public void Code() throws ParseException {
+    jj_consume_token(CODE);
+    CodeWord();
+    jj_consume_token(LB);
+    label_3:
+    while (true) {
+      CourseEntry();
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case COURSE_NUMBER:
+      case NUM_3:
+        ;
+        break;
+      default:
+        jj_la1[3] = jj_gen;
+        break label_3;
+      }
+    }
+    jj_consume_token(RB);
+  }
+
+  final public void CourseEntry() throws ParseException {
+    CourseNumber();
+    jj_consume_token(NON_EMPTY_STRING);
+    CoursePoints();
+  }
+
+  final public void CourseNumber() throws ParseException {
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case COURSE_NUMBER:
+      jj_consume_token(COURSE_NUMBER);
+      break;
+    case NUM_3:
+      jj_consume_token(NUM_3);
+      break;
+    default:
+      jj_la1[4] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+  }
+
+  final public void CoursePoints() throws ParseException {
+    jj_consume_token(POINTS);
+  }
+
+  final public void CodeWord() throws ParseException {
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case ESTABLISHED:
+      jj_consume_token(ESTABLISHED);
+      break;
+    case WEBSITE:
+      jj_consume_token(WEBSITE);
+      break;
+    case GPS:
+      jj_consume_token(GPS);
+      break;
+    case FACULTY:
+      jj_consume_token(FACULTY);
+      break;
+    case DEGREE:
+      jj_consume_token(DEGREE);
+      break;
+    case NORTH:
+      jj_consume_token(NORTH);
+      break;
+    case SOUTH:
+      jj_consume_token(SOUTH);
+      break;
+    case EAST:
+      jj_consume_token(EAST);
+      break;
+    case WEST:
+      jj_consume_token(WEST);
+      break;
+    case STUDENTS:
+      jj_consume_token(STUDENTS);
+      break;
+    case STAFF:
+      jj_consume_token(STAFF);
+      break;
+    case CODE:
+      jj_consume_token(CODE);
+      break;
+    case UNIVERSITY:
+      jj_consume_token(UNIVERSITY);
+      break;
+    case UPPER_CHARACTER:
+      label_4:
+      while (true) {
+        jj_consume_token(UPPER_CHARACTER);
+        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+        case UPPER_CHARACTER:
+          ;
+          break;
+        default:
+          jj_la1[5] = jj_gen;
+          break label_4;
+        }
+      }
+      break;
+    case NON_EMPTY_UPPER_STRING:
+      jj_consume_token(NON_EMPTY_UPPER_STRING);
+      break;
+    default:
+      jj_la1[6] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+  }
+
+  final public void Location() throws ParseException {
+    Longitude();
+    jj_consume_token(34);
+    Latitude();
+  }
+
+  final public void Longitude() throws ParseException {
+    MaxThreeDigits();
+    jj_consume_token(DEGREE);
+    Minutes();
+    Seconds();
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case EAST:
+      jj_consume_token(EAST);
+      break;
+    case WEST:
+      jj_consume_token(WEST);
+      break;
+    default:
+      jj_la1[7] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+  }
+
+  final public void Latitude() throws ParseException {
+    MaxTwoDigits();
+    jj_consume_token(DEGREE);
+    Minutes();
+    Seconds();
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case NORTH:
+      jj_consume_token(NORTH);
+      break;
+    case SOUTH:
+      jj_consume_token(SOUTH);
+      break;
+    default:
+      jj_la1[8] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+  }
+
+  final public void Minutes() throws ParseException {
+    MaxTwoDigits();
+  }
+
+  final public void Seconds() throws ParseException {
+    MaxTwoDigits();
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case PERIOD:
+      jj_consume_token(PERIOD);
+      MaxFourDigits();
+      break;
+    default:
+      jj_la1[9] = jj_gen;
+      ;
+    }
+  }
+
+  final public void AnyDigits() throws ParseException {
+    label_5:
+    while (true) {
+      MaxFourDigits();
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case NUM_4:
+      case NUM_3:
+      case NUM_2:
+      case NUM_1:
+        ;
+        break;
+      default:
+        jj_la1[10] = jj_gen;
+        break label_5;
+      }
+    }
+  }
+
+  final public void MaxFourDigits() throws ParseException {
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case NUM_3:
+    case NUM_2:
+    case NUM_1:
+      MaxThreeDigits();
+      break;
+    case NUM_4:
+      jj_consume_token(NUM_4);
+      break;
+    default:
+      jj_la1[11] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+  }
+
+  final public void MaxThreeDigits() throws ParseException {
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case NUM_2:
+    case NUM_1:
+      MaxTwoDigits();
+      break;
+    case NUM_3:
+      jj_consume_token(NUM_3);
+      break;
+    default:
+      jj_la1[12] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+  }
+
+  final public void MaxTwoDigits() throws ParseException {
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case NUM_1:
+      jj_consume_token(NUM_1);
+      break;
+    case NUM_2:
+      jj_consume_token(NUM_2);
+      break;
+    default:
+      jj_la1[13] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
   }
 
   /** Generated Token Manager. */
@@ -16,13 +360,18 @@ public class UniParser implements UniParserConstants {
   public Token jj_nt;
   private int jj_ntk;
   private int jj_gen;
-  final private int[] jj_la1 = new int[0];
+  final private int[] jj_la1 = new int[14];
   static private int[] jj_la1_0;
+  static private int[] jj_la1_1;
   static {
       jj_la1_init_0();
+      jj_la1_init_1();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {};
+      jj_la1_0 = new int[] {0x40000,0x7010000,0x7010000,0xa00,0xa00,0x8000000,0x4fffc000,0xc00000,0x300000,0x80,0x3c00,0x3c00,0x3800,0x3000,};
+   }
+   private static void jj_la1_init_1() {
+      jj_la1_1 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
    }
 
   /** Constructor with InputStream. */
@@ -36,7 +385,7 @@ public class UniParser implements UniParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 0; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 14; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -50,7 +399,7 @@ public class UniParser implements UniParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 0; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 14; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
@@ -60,7 +409,7 @@ public class UniParser implements UniParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 0; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 14; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -70,7 +419,7 @@ public class UniParser implements UniParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 0; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 14; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
@@ -79,7 +428,7 @@ public class UniParser implements UniParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 0; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 14; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -88,7 +437,7 @@ public class UniParser implements UniParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 0; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 14; i++) jj_la1[i] = -1;
   }
 
   private Token jj_consume_token(int kind) throws ParseException {
@@ -139,21 +488,24 @@ public class UniParser implements UniParserConstants {
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[11];
+    boolean[] la1tokens = new boolean[35];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 0; i++) {
+    for (int i = 0; i < 14; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
             la1tokens[j] = true;
           }
+          if ((jj_la1_1[i] & (1<<j)) != 0) {
+            la1tokens[32+j] = true;
+          }
         }
       }
     }
-    for (int i = 0; i < 11; i++) {
+    for (int i = 0; i < 35; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

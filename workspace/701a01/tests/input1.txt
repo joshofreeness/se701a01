@@ -8,7 +8,7 @@ UNIVERSITY "The University of Auckland" {
 		STAFF 362
 		WEBSITE "http://www.engineering.auckland.ac.nz"
 		CODE "SOFTENG" {
-			251 "Object Oriented Software Construction" 15p
+			251  "Object Oriented Software Construction" 15p
 			796A "ME Thesis" 60p
 		}
 		CODE "ELECTENG" {

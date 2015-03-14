@@ -11,17 +11,63 @@ public interface UniParserConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int PLUS = 5;
+  int DIGIT = 5;
   /** RegularExpression Id. */
-  int MINUS = 6;
+  int CHARACTER = 6;
   /** RegularExpression Id. */
-  int MULTIPLY = 7;
+  int PERIOD = 7;
   /** RegularExpression Id. */
-  int DIVIDE = 8;
+  int POINTS = 8;
   /** RegularExpression Id. */
-  int CONSTANT = 9;
+  int COURSE_NUMBER = 9;
   /** RegularExpression Id. */
-  int DIGIT = 10;
+  int NUM_4 = 10;
+  /** RegularExpression Id. */
+  int NUM_3 = 11;
+  /** RegularExpression Id. */
+  int NUM_2 = 12;
+  /** RegularExpression Id. */
+  int NUM_1 = 13;
+  /** RegularExpression Id. */
+  int UNIVERSITY = 14;
+  /** RegularExpression Id. */
+  int ESTABLISHED = 15;
+  /** RegularExpression Id. */
+  int WEBSITE = 16;
+  /** RegularExpression Id. */
+  int GPS = 17;
+  /** RegularExpression Id. */
+  int FACULTY = 18;
+  /** RegularExpression Id. */
+  int DEGREE = 19;
+  /** RegularExpression Id. */
+  int NORTH = 20;
+  /** RegularExpression Id. */
+  int SOUTH = 21;
+  /** RegularExpression Id. */
+  int EAST = 22;
+  /** RegularExpression Id. */
+  int WEST = 23;
+  /** RegularExpression Id. */
+  int STUDENTS = 24;
+  /** RegularExpression Id. */
+  int STAFF = 25;
+  /** RegularExpression Id. */
+  int CODE = 26;
+  /** RegularExpression Id. */
+  int UPPER_CHARACTER = 27;
+  /** RegularExpression Id. */
+  int EMPTY_STRING = 28;
+  /** RegularExpression Id. */
+  int WEBADDRESS = 29;
+  /** RegularExpression Id. */
+  int NON_EMPTY_UPPER_STRING = 30;
+  /** RegularExpression Id. */
+  int NON_EMPTY_STRING = 31;
+  /** RegularExpression Id. */
+  int LB = 32;
+  /** RegularExpression Id. */
+  int RB = 33;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -33,12 +79,36 @@ public interface UniParserConstants {
     "\"\\r\"",
     "\"\\t\"",
     "\"\\n\"",
-    "\"+\"",
-    "\"-\"",
-    "\"*\"",
-    "\"/\"",
-    "<CONSTANT>",
     "<DIGIT>",
+    "<CHARACTER>",
+    "\".\"",
+    "<POINTS>",
+    "<COURSE_NUMBER>",
+    "<NUM_4>",
+    "<NUM_3>",
+    "<NUM_2>",
+    "<NUM_1>",
+    "\"UNIVERSITY\"",
+    "\"EST\"",
+    "\"WEBSITE\"",
+    "\"GPS\"",
+    "\"FACULTY\"",
+    "\"deg\"",
+    "\"N\"",
+    "\"S\"",
+    "\"E\"",
+    "\"W\"",
+    "\"STUDENTS\"",
+    "\"STAFF\"",
+    "\"CODE\"",
+    "<UPPER_CHARACTER>",
+    "\"\\\"\\\"\"",
+    "<WEBADDRESS>",
+    "<NON_EMPTY_UPPER_STRING>",
+    "<NON_EMPTY_STRING>",
+    "\"{\"",
+    "\"}\"",
+    "\",\"",
   };
 
 }

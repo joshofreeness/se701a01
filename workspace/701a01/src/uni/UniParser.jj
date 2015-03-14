@@ -1,7 +1,205 @@
 /**
- * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
+ * SOFTENG 701 Assignment1 Joshua Free jfre553 2646577
  */options{  static = false;}PARSER_BEGIN(UniParser)package uni;
 
-public class UniParser{}PARSER_END(UniParser)SKIP :{  " "| "\r"| "\t"| "\n"}TOKEN : /* OPERATORS */{  < PLUS : "+" >| < MINUS : "-" >| < MULTIPLY : "*" >| < DIVIDE : "/" >}TOKEN :{  < CONSTANT : (< DIGIT >)+ >| < #DIGIT : [ "0"-"9" ] >}public void University():{}
+public class UniParser{}PARSER_END(UniParser)SKIP :{  " "| "\r"| "\t"| "\n"}TOKEN :{  <#DIGIT : [ "0"-"9" ] >
+| <#CHARACTER : ["a"-"z", "A"-"Z"]>
+| <PERIOD : ".">
+
+| <POINTS : (<DIGIT> | (<DIGIT>){2}) "p" >
+| <COURSE_NUMBER : (<DIGIT>){3} ("A" | "B")>
+
+| <NUM_4 : (<DIGIT>){4}>  
+| <NUM_3 : (<DIGIT>){3}>  
+| <NUM_2 : (<DIGIT>){2}>  
+| <NUM_1 : (<DIGIT>){1}>  
+
+| <UNIVERSITY : "UNIVERSITY"> 
+| <ESTABLISHED : "EST">
+| <WEBSITE : "WEBSITE">
+| <GPS : "GPS">
+| <FACULTY : "FACULTY">
+| <DEGREE: "deg">
+| <NORTH : "N">
+| <SOUTH : "S">
+| <EAST : "E">
+| <WEST : "W">
+| <STUDENTS : "STUDENTS">
+| <STAFF : "STAFF">
+| <CODE : "CODE">
+| <UPPER_CHARACTER : ["A"-"Z"]>
+
+| <EMPTY_STRING : "\"\""> 
+| <WEBADDRESS : "\"http" ("s")? "://" (<CHARACTER>|<PERIOD>|"/"|"_")+ "\"">
+| <NON_EMPTY_UPPER_STRING : "\"" (<UPPER_CHARACTER> )+ "\"" >
+| <NON_EMPTY_STRING : "\"" (<CHARACTER> | " ")+ "\"" > //Must be defined AFTER webaddress and NON_EMPTY_UPPER_STRING
+
+| <LB : "{">
+| <RB : "}">
+
+}public void University():{}
 {
-  < CONSTANT>}
+  <UNIVERSITY> <NON_EMPTY_STRING> <LB>
+  Established()
+  Website()
+  Gps()
+  (Faculty())*
+  <RB><EOF>}
+
+public void Established():{}
+{
+	<ESTABLISHED> <NUM_4>
+}
+
+public void Website(): {}
+{
+	<WEBSITE> <WEBADDRESS>
+}
+
+public void Gps() : {}
+{
+	<GPS> Location()
+}
+
+public void Faculty() : 
+{
+	int StudentsCount = 0;
+	int StaffCount = 0;
+	int CodeCount = 0;
+	int WebsiteCount = 0;
+}
+{
+	<FACULTY> <NON_EMPTY_STRING> <LB>
+	(Students() {StudentsCount++;}| Staff() {StaffCount++;}| Code() {CodeCount++;}| Website(){WebsiteCount++;})+
+	<RB>
+	{
+		if (StudentsCount != 1)
+		{
+		throw new ParseException("Expected exactly one Students entry in FACULTY");
+		}
+		if (StaffCount != 1)
+		{
+		throw new ParseException("Expected exactly one Staff entry in FACULTY");
+		}
+		if (WebsiteCount > 1)
+		{
+		throw new ParseException("Expected zero or one Website entries in FACULTY");
+		}
+		if (CodeCount < 1)
+		{
+		throw new ParseException("Expected one or more code entries in FACULTY");
+		}
+	}
+}
+
+public void Students():{}
+{
+	<STUDENTS> AnyDigits()
+}
+
+public void Staff():{}
+{
+	<STAFF> AnyDigits()
+}
+
+public void Code():{}
+{
+	<CODE> CodeWord() <LB>
+	(CourseEntry())+
+	<RB>
+}
+
+public void CourseEntry():{}
+{
+	CourseNumber() 
+	<NON_EMPTY_STRING>
+	CoursePoints() //Add p to the end
+}
+
+public void CourseNumber():{}
+{
+// enforce no whitespace
+	(<COURSE_NUMBER> | <NUM_3>)
+	//<NUM_3> (<UPPERA> | <UPPERB>)? 
+}
+
+public void CoursePoints():{}
+{
+	<POINTS>
+}
+
+public void CodeWord():{}
+{
+
+	( <ESTABLISHED >
+	| <WEBSITE>
+	| <GPS>
+	| <FACULTY>
+	| <DEGREE>
+	| <NORTH >
+	| <SOUTH>
+	| <EAST>
+	| <WEST >
+	| <STUDENTS>
+	| <STAFF>
+	| <CODE>
+	| <UNIVERSITY> 
+	| (<UPPER_CHARACTER>)+
+	| <NON_EMPTY_UPPER_STRING>) 
+
+}
+
+public void Location():{}
+{
+	Longitude() "," Latitude()
+}
+
+public void Longitude():{}
+{
+	MaxThreeDigits() 
+	<DEGREE> 
+	Minutes()
+	Seconds()
+	(<EAST> | <WEST>)
+	
+}
+
+public void Latitude():{}
+{
+	MaxTwoDigits()
+	<DEGREE> 
+	Minutes()
+	Seconds()
+	(<NORTH> | <SOUTH>)
+}
+
+public void Minutes():{}
+{
+	MaxTwoDigits() 
+}
+
+public void Seconds():{}
+{
+	MaxTwoDigits() (<PERIOD> MaxFourDigits())?
+}
+
+public void AnyDigits():{}
+{
+	(MaxFourDigits())+
+}
+
+public void MaxFourDigits():{}
+{
+	MaxThreeDigits() | <NUM_4>
+}
+
+public void MaxThreeDigits():{}
+{
+	MaxTwoDigits() | <NUM_3>
+}
+
+public void MaxTwoDigits():{}
+{
+	<NUM_1> | <NUM_2>
+}
+
