@@ -1,0 +1,12 @@
+UNIVERSITY " " {
+	EST 0000
+	WEBSITE "https://.//..././"
+	GPS 999 deg 0 1.11 W, 0 deg 99 99.2457 S
+	FACULTY "Engineering" {
+		STUDENTS 34645567
+		STAFF 4
+		CODE "QWE" {
+			251 " jsdgij  jJOMSFH   SFMKE BRZ bawRYWBD  NHFa  vgd" 00p
+		}
+	}
+}

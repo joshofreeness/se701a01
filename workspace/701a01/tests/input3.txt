@@ -1,0 +1,5 @@
+UNIVERSITY "Test" {
+	EST 0000
+	WEBSITE "http://google.com"
+	GPS 0 deg 99 45 E, 23 deg 7 0.4534 N
+}

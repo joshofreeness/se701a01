@@ -1,6 +1,7 @@
 /**
  * SOFTENG 701 Assignment1 Joshua Free jfre553 2646577
- */options{  static = false;}PARSER_BEGIN(UniParser)package uni;
+ */options{  JDK_VERSION = "1.5";
+  static = false;}PARSER_BEGIN(UniParser)package uni;
 
 public class UniParser{}PARSER_END(UniParser)SKIP :{  " "| "\r"| "\t"| "\n"}TOKEN :{  <#DIGIT : [ "0"-"9" ] >
 | <#CHARACTER : ["a"-"z", "A"-"Z"]>
